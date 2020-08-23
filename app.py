@@ -3,6 +3,8 @@ from flask import render_template
 import mmh3
 
 API_PATH_PREFIX = 'api'
+NUM_HASH_FUNCTIONS = 3
+NUM_FILTER_BITS = 64
 
 app = Flask(__name__)
 
