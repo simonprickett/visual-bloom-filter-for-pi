@@ -1,0 +1,6 @@
+.external-link,
+.external-link.visited,
+.external-link.hover {
+  text-decoration: none;
+  color: #c11b17 !important;
+}

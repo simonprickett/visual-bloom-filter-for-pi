@@ -5,12 +5,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'bulma.min.css') }}"></link>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'app.css') }}"></link>
     <title>Visual Bloom Filter</title>
   </head>
 
   <body>
-    <h1>Visual Bloom Filter</h1>
-    <p>TODO...</p>
+    <section class="hero is-dark is-fullheight">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Visual Bloom Filter
+          </h1>
+          <h2 class="subtitle">
+            Try it out...
+          </h2>
+          <div class="field is-horizontal has-addons">
+            <div class="control">
+              <input id="elementText" class="input is-large" type="text" placeholder="Element">
+            </div>
+            <div class="control">
+              <button id="addButton" class="button is-primary is-large">Add</button>
+            </div>
+            <div class="control">
+              <button id="existsButton" class="button is-info is-large">Exists</button>
+            </div>
+          </div>
+          <p>A project by <a class="external-link" href="https://simonprickett.dev/">Simon Prickett</a>. <a class="external-link" href="https://github.com/simonprickett/visual-bloom-filter-for-pi">Source code on GitHub</a>.</p>
+        </div>
+      </div>
+    </section>
     <script type="text/javascript" src="{{ url_for('static', filename = 'app.js') }}"></script>
   </body>
 
