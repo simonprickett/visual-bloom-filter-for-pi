@@ -1,17 +1,20 @@
   window.onload = function () {
     const API_PREFIX = 'api';
 
+    const displayErrorCallingBackendMessage = function () {
+      document.getElementById('displayResult').innerHTML = `Error calling backend :(`;
+    };
+
     const getResult = async function(response) {
       const responseData = await response.json();
       return responseData.result;
     };
 
     const callBloomFilter = async function (element, isAdd) {
-      // TODO POST if it is the exists button...
-      const response = await fetch(`/${API_PREFIX}/${isAdd ? 'add' : 'exists'}/${element}`);
+      const response = await fetch(`/${API_PREFIX}/${isAdd ? 'add' : 'exists'}/${element}`, { method: isAdd ? 'POST' : 'GET'});
 
       if (response.status !== 200  && response.status !== 201) {
-        document.getElementById('displayResult').innerHTML = `Error calling backend :(`;
+        displayErrorCallingBackendMessage();
         return;
       }
 
@@ -48,10 +51,18 @@
 
     document.getElementById('resetButton').onclick = async function (e) {
       e.preventDefault();
-
-      // TODO POST to the backend...
-
-      document.getElementById('displayResult').innerHTML = 'Filter reset.';
+     
       document.getElementById('elementText').value = '';
+
+      const response = await fetch(`/${API_PREFIX}/reset`, { method: 'POST' });
+
+      if (response.status !== 200) {
+        displayErrorCallingBackendMessage();
+        return;
+      }
+
+      const result = await getResult(response);
+
+      document.getElementById('displayResult').innerHTML = `Filter reset${result ? '' : ' failed'}.`;
     }
   };
