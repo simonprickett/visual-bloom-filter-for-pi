@@ -21,15 +21,15 @@ def exists_in_filter(element):
 def reset_filter():
     return True
 
-@app.route(f'/{API_PATH_PREFIX}/add/<element>')
+@app.route(f'/{API_PATH_PREFIX}/add/<element>', methods=['POST'])
 def add(element):
-    return jsonify({ 'result': add_to_filter(element) })
+    return jsonify({ 'result': add_to_filter(element) }), 201
 
 @app.route(f'/{API_PATH_PREFIX}/exists/<element>')
 def exists(element):
     return jsonify({ 'result': exists_in_filter(element) })
 
-@app.route(f'/{API_PATH_PREFIX}/reset')
+@app.route(f'/{API_PATH_PREFIX}/reset', methods=['POST'])
 def reset():
     return jsonify({ 'result': reset_filter() })
 
