@@ -1,14 +1,34 @@
   window.onload = function () {
-    const addButton = document.getElementById('addButton');
-    const existsButton = document.getElementById('existsButton');
+    const callBloomFilter = async function (element, isAdd) {
+      // TODO call the filter...
+      const result = true;
 
-    addButton.onclick = async function (e) {
-      alert('add');
-      e.preventDefault();
-    }
+      if (isAdd) {
+        document.getElementById('displayResult').innerHTML = `<strong>${element}</strong> was added to the Bloom filter.`;
+      } else {
+        document.getElementById('displayResult').innerHTML = `<strong>${element}</strong> ${result ? 'may be' : 'is not'} in the Bloom filter.`;
+      }
 
-    existsButton.onclick = async function (e) {
+      document.getElementById('elementText').value = '';
+    };
+
+    const buttonClicked = async function (e, isAdd) {
       e.preventDefault();
-      alert('exists!');
-    }
+
+      const element = document.getElementById('elementText').value
+
+      if (element.length === 0) {
+        return;
+      }
+      
+      callBloomFilter(element, isAdd);
+    };
+
+    document.getElementById('addButton').onclick = function (e) {
+      buttonClicked(e, true);
+    };
+
+    document.getElementById('existsButton').onclick = function (e) {
+      buttonClicked(e);
+    };
   };
