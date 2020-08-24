@@ -16,6 +16,10 @@ def add(element):
 def exists(element):
     return f'TODO: EXISTS {element}'
 
+@app.route(f'/${API_PATH_PREFIX}/reset')
+def reset():
+    return 'TODO: RESET'
+
 @app.route('/')
 def homepage():
     return render_template('homepage.html')
