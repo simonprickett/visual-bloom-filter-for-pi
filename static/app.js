@@ -35,6 +35,7 @@
       const element = document.getElementById('elementText').value
 
       if (element.length === 0) {
+        document.getElementById('displayResult').innerHTML = '<strong>Enter a value then press Add or Exists.</strong>';
         return;
       }
       
