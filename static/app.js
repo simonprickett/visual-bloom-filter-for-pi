@@ -31,4 +31,11 @@
     document.getElementById('existsButton').onclick = function (e) {
       buttonClicked(e);
     };
+
+    document.getElementById('resetButton').onclick = async function (e) {
+      e.preventDefault();
+
+      document.getElementById('displayResult').innerHTML = 'Filter reset.';
+      document.getElementById('elementText').value = '';
+    }
   };
