@@ -2,6 +2,9 @@ from flask import Flask
 from flask import jsonify
 from flask import render_template
 import mmh3
+import random # may not be needed long term
+import time
+import unicornhat
 
 API_PATH_PREFIX = 'api'
 NUM_HASH_FUNCTIONS = 3
@@ -11,6 +14,19 @@ COLOR_BIT_SET = 'TODO'
 COLOR_BIT_QUERY = 'TODO'
 
 app = Flask(__name__)
+
+unicornhat.set_layout(unicornhat.AUTO)
+unicornhat.rotation(180)
+unicornhat.brightness(0.18)
+unicorn_width, unicorn_height = unicornhat.get_shape()
+unicornhat.off()
+
+for y in range(unicorn_height):
+    for x in range(unicorn_width):
+       unicornhat.set_pixel(x, y, random.randrange(50, 255), random.randrange(50, 255), random.randrange(50, 255))
+       unicornhat.show()
+       time.sleep(0.2)
+
 
 def add_to_filter(element):
     return True
