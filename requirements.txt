@@ -4,4 +4,6 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 murmurhash3==2.3.5
+rpi-ws281x==4.2.4
+unicornhat==2.2.3
 Werkzeug==1.0.1
