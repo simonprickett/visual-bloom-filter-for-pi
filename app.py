@@ -8,7 +8,7 @@ import unicornhat
 
 API_PATH_PREFIX = 'api'
 NUM_HASH_FUNCTIONS = 3
-NUM_FILTER_BITS = 64
+NUM_LEDS = 64
 COLOR_BIT_UNSET = 'TODO'
 COLOR_BIT_SET = 'TODO'
 COLOR_BIT_QUERY = 'TODO'
@@ -29,9 +29,20 @@ for y in range(unicorn_height):
 
 
 def add_to_filter(element):
+    for n in range(NUM_HASH_FUNCTIONS): 
+        led = mmh3.hash(element, n) % NUM_LEDS 
+        print(str(led))
+
     return True
 
 def exists_in_filter(element):
+    for n in range(NUM_HASH_FUNCTIONS): 
+        led = mmh3.hash(element, n) % NUM_LEDS
+        print(str(led))
+        
+        # TODO Test unicorn hat status for this led...
+        # If false return false...
+
     return True
 
 def reset_filter():
