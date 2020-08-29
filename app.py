@@ -27,11 +27,25 @@ for y in range(unicorn_height):
        unicornhat.show()
        time.sleep(0.2)
 
+def get_led_position(led):
+   # TODO return x, y tuple
+   return (0, 0)
+
+def query_led_status(led):
+    # TODO some animation
+    # TODO True if on, False if off
+    return True
+
+def set_led_status(led):
+    # TODO this won't need to return anything...
+    return True
 
 def add_to_filter(element):
     for n in range(NUM_HASH_FUNCTIONS): 
         led = mmh3.hash(element, n) % NUM_LEDS 
         print(str(led))
+
+        set_led_status(led)
 
     return True
 
@@ -42,6 +56,9 @@ def exists_in_filter(element):
         
         # TODO Test unicorn hat status for this led...
         # If false return false...
+
+        if (query_led_status(led) == False):
+            return False
 
     return True
 
