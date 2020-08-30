@@ -53,3 +53,7 @@ Once the page has loaded, you can use the "Add" button to add a new entry to the
 ## Using the Application's API
 
 TODO
+
+## Other Notes
+
+This implementation is case sensitive, so "Simon", "SIMON", and "simon" will be considered different entries.
