@@ -17,28 +17,27 @@ app = Flask(__name__)
 
 unicornhat.set_layout(unicornhat.AUTO)
 unicornhat.rotation(180)
-unicornhat.brightness(0.18)
+#unicornhat.brightness(0.18)
+#unicornhat.brightness(0.19)
 unicorn_width, unicorn_height = unicornhat.get_shape()
 unicornhat.off()
 
-for y in range(unicorn_height):
-    for x in range(unicorn_width):
-       unicornhat.set_pixel(x, y, random.randrange(50, 255), random.randrange(50, 255), random.randrange(50, 255))
-       unicornhat.show()
-       time.sleep(0.2)
-
 def get_led_position(led):
-   # TODO return x, y tuple
-   return (0, 0)
+    unicorn_width, unicorn_height = unicornhat.get_shape()
+    return (led % unicorn_height, led // unicorn_width)
 
 def query_led_status(led):
+    pos = get_led_position(led)
     # TODO some animation
-    # TODO True if on, False if off
-    return True
+    r, g, b = unicornhat.get_pixel(pos[0], pos[1])
+    return not (r == 0 and g == 0 and b == 0) 
 
 def set_led_status(led):
-    # TODO this won't need to return anything...
-    return True
+    # TODO animate this...
+    pos = get_led_position(led)
+
+    unicornhat.set_pixel(pos[0], pos[1], 255, 0, 0)
+    unicornhat.show()
 
 def add_to_filter(element):
     for n in range(NUM_HASH_FUNCTIONS): 
@@ -63,6 +62,8 @@ def exists_in_filter(element):
     return True
 
 def reset_filter():
+    # TODO animate
+    unicornhat.off()
     return True
 
 @app.route(f'/{API_PATH_PREFIX}/add/<element>', methods=['POST'])
