@@ -12,13 +12,12 @@ NUM_LEDS = 64
 COLOR_BIT_SET = (255, 0, 0)
 COLOR_BIT_WRITING = (255, 165, 0)
 COLOR_BIT_QUERYING = (65, 105, 225) 
+NUM_TRANSITIONS = 4
 
 app = Flask(__name__)
 
 unicornhat.set_layout(unicornhat.AUTO)
 unicornhat.rotation(180)
-#unicornhat.brightness(0.18)
-#unicornhat.brightness(0.19)
 unicorn_width, unicorn_height = unicornhat.get_shape()
 unicornhat.off()
 
@@ -26,52 +25,64 @@ def get_led_position(led):
     unicorn_width, unicorn_height = unicornhat.get_shape()
     return (led % unicorn_height, led // unicorn_width)
 
-def toggle_led(pos, transition_color, new_color):
-    # This should take a list of tuples for all 3 pixels to change...
-    # This should also have an interim color to use
+def toggle_leds(leds, transition_color, new_color):
+    orig_colors = []
 
-    orig_color = unicornhat.get_pixel(pos[0], pos[1])
+    for led in leds: 
+        orig_colors.append(unicornhat.get_pixel(led[0], led[1]))
 
-    for n in range(4):
-        unicornhat.set_pixel(pos[0], pos[1], transition_color[0], transition_color[1], transition_color[2])
+    for n in range(NUM_TRANSITIONS):
+        for l in range(len(leds)):
+            this_led = leds[l]
+            unicornhat.set_pixel(this_led[0], this_led[1], transition_color[0], transition_color[1], transition_color[2])
         unicornhat.show()
         time.sleep(0.3)
-        unicornhat.set_pixel(pos[0], pos[1], orig_color[0], orig_color[1], orig_color[2])
+       
+        for l in range(len(leds)): 
+            this_led = leds[l]
+            this_orig_color = orig_colors[l]
+            unicornhat.set_pixel(this_led[0], this_led[1], this_orig_color[0], this_orig_color[1], this_orig_color[2])
         unicornhat.show()
         time.sleep(0.3)
 
-        if n == 3:
-            unicornhat.set_pixel(pos[0], pos[1], new_color[0], new_color[1], new_color[2])
-            unicornhat.show()
+        if n == (NUM_TRANSITIONS - 1):
+            for l in range(len(leds)):
+                this_led = leds[l]
+                unicornhat.set_pixel(this_led[0], this_led[1], new_color[0], new_color[1], new_color[2])
+                unicornhat.show()
 
 def query_led_status(led):
     pos = get_led_position(led)
 
     r, g, b = unicornhat.get_pixel(pos[0], pos[1])
-    toggle_led(pos, COLOR_BIT_QUERYING, (r, g, b))
+    toggle_leds([pos], COLOR_BIT_QUERYING, (r, g, b))
 
     return not (r == 0 and g == 0 and b == 0) 
 
-def set_led_status(led):
-    pos = get_led_position(led)
-    toggle_led(pos, COLOR_BIT_WRITING, COLOR_BIT_SET)
+def set_led_status(leds):
+    led_positions = []
+
+    for led in leds:
+        led_positions.append(get_led_position(led))
+
+    toggle_leds(led_positions, COLOR_BIT_WRITING, COLOR_BIT_SET)
 
 def add_to_filter(element):
+    leds = []
+
     for n in range(NUM_HASH_FUNCTIONS): 
         led = mmh3.hash(element, n) % NUM_LEDS 
         print(str(led))
 
-        set_led_status(led)
+        leds.append(led)
 
+    set_led_status(leds)
     return True
 
 def exists_in_filter(element):
     for n in range(NUM_HASH_FUNCTIONS): 
         led = mmh3.hash(element, n) % NUM_LEDS
         print(str(led))
-        
-        # TODO Test unicorn hat status for this led...
-        # If false return false...
 
         if (query_led_status(led) == False):
             return False
@@ -79,7 +90,13 @@ def exists_in_filter(element):
     return True
 
 def reset_filter():
-    # TODO animate
+    for n in range(2):
+        unicornhat.set_all(0, 0, 255)
+        unicornhat.show()
+        time.sleep(0.3)
+        unicornhat.off()
+        time.sleep(0.3)
+
     unicornhat.off()
     return True
 
