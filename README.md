@@ -34,11 +34,21 @@ TODO
 
 ## Starting the Application
 
-TODO
+Because of the way the Unicorn Hat library accesses the hardware, this needs to run as root, so:
+
+```bash
+$ sudo bash
+# . venv/bin/activate
+# flask run --host=0.0.0.0
+```
+
+Be sure to specify `--host=0.0.0.0` when starting Flask, so you can access the front end from other machines on your local network.
 
 ## Using the Application's Front End
 
-TODO
+To get to the application's front end, point your browser at `http://<ip address of the pi>:5000/`.
+
+Once the page has loaded, you can use the "Add" button to add a new entry to the Bloom filter, "Exists" to see if an entry might be in the Bloom filter and "Reset" to clear all bits in the Bloom filter.
 
 ## Using the Application's API
 
