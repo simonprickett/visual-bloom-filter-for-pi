@@ -40,6 +40,7 @@
       }
       
       callBloomFilter(element, isAdd);
+      document.getElementById('elementText').focus();
     };
 
     document.getElementById('addButton').onclick = function (e) {
@@ -65,5 +66,6 @@
       const result = await getResult(response);
 
       document.getElementById('displayResult').innerHTML = `Filter reset${result ? '' : ' failed'}.`;
+      document.getElementById('elementText').focus();
     }
   };
