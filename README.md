@@ -56,13 +56,66 @@ Be sure to specify `--host=0.0.0.0` when starting Flask, so you can access the f
 
 ## Using the Application's Front End
 
-To get to the application's front end, point your browser at `http://<ip address of the pi>:5000/`.
+To get to the application's front end, point your browser at `http://<pi ip address>:5000/`.
 
 Once the page has loaded, you can use the "Add" button to add a new entry to the Bloom filter, "Exists" to see if an entry might be in the Bloom filter and "Reset" to clear all bits in the Bloom filter.
 
 ## Using the Application's API
 
-TODO
+### Add an Element to the Bloom Filter
+
+**Request:**
+
+```bash
+$ curl --location --request POST 'http://<pi ip address>:5000/api/add/frederick'
+```
+
+**Response:**
+
+```json
+{
+    "result": true
+}
+```
+
+Response will always be `true`.  Return code is 201.
+
+### See if an Element Exists in the Bloom Filter
+
+**Request:**
+
+```bash
+$ curl --location --request GET 'http://<pi ip address>:5000/api/exists/robert'
+```
+
+**Response:**
+
+```json
+{
+    "result": false
+}
+```
+
+Remember that this is a **probabalistic** data structure, so a response of `false` means the element is definitely not there, and `true` means it might be there.  Return code is 200.
+
+### Reset the Bloom Filter
+
+
+**Request:**
+
+```bash
+$ curl --location --request POST 'http://<pi ip address>:5000/api/reset'
+```
+
+**Response:**
+
+```json
+{
+    "result": true
+}
+```
+
+Response will always be `true`.  Return code is 200.
 
 ## Other Notes
 
