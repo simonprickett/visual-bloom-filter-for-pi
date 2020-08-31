@@ -21,6 +21,16 @@ This example is written in Python, exposes an API with Flask and uses the murmur
 
 ## Installation and Setup
 
+Make sure you're using Python 3 (I tested this with 3.8).
+
+```bash
+$ git clone https://github.com/simonprickett/visual-bloom-filter-for-pi.git
+$ cd visual-bloom-filter-for-pi
+$ python3 -m venv venv
+$ . venv/bin/activate
+$ pip install -r requirements.txt
+```
+
 ### Hardware
 
 * Connect the Unicorn hat to all 40 GPIO pins on the Pi.
