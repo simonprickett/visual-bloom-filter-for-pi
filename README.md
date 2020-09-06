@@ -8,6 +8,7 @@ This example is written in Python, exposes an API with Flask and uses the murmur
 
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) (API framework).
 * [Murmur3 hashing](https://pypi.org/project/murmurhash3/) (for hash functions).
+* [Bulma](https://bulma.io/) (front end CSS).
 * [Pimoroni Unicorn Hat library for Python](http://docs.pimoroni.com/unicornhat/).
 * [Pimoroni Unicorn Hat](https://shop.pimoroni.com/products/unicorn-hat) - there is also a more expensive HD version with more pixels if you want a bigger array for your filter!
 * [Raspberry Pi Model A+ v1](https://www.raspberrypi.org/products/raspberry-pi-1-model-a-plus/) (any 40 pin GPIO Pi that can take HAT boards will work, which is most of them - the model I used is long obsolete I just had one kicking around).
@@ -39,6 +40,38 @@ $ pip install -r requirements.txt
 * Make a note of the Pi's IP address.
 
 ### Software
+
+The project has two main components, a backend / API written in Python using [Flask](https://flask.palletsprojects.com/en/1.1.x/), and a front end written in vanilla JavaScript using [Bulma](https://bulma.io/) CSS.  There's no build step required for the JavaScript and nothing to `npm install` :)
+
+#### Flask Application
+
+The Flask application code is all in `app.py`, here's a quick walkthrough:
+
+I start off by defining some constants, initializing Flask and configuring the Unicorn hat so that LED 0, 0 is in the top left hand corner according to the way I have the Raspberry Pi oriented... I then get the size of the Unicorn Hat (Pimoroni make other models that have different sizes and I wanted to make the code pretty generic).
+
+The utility function `get_led_position` translates a number into its equivalent row and column position on the LED matrix for the Unicorn Hat.  So, 10 for example would be row 1, column 1 for an 8 x 8 Unicorn Hat where the rows and columns are both 0 - 7 inclusive.
+
+Function `toggle_leds` TODO...
+
+Function `query_led_status` TODO...
+
+Function `set_led_status` TODO...
+
+Function `add_to_filter` TODO...
+
+Function `exists_in_filter` TODO...
+
+Function `reset_filter` TODO...
+
+TODO Flask routes...
+
+#### JavaScript / Bulma Front End
+
+The front end is a single HTML page (`templates/homepage.html`) that works together with a single JavaScript file `static/app.js`.
+
+The vast majority of the styling comes from Bulma (`static/bulma.min.css`) with a tiny bit of link styling in `static/app.css`.  
+
+Here's how it all works:
 
 TODO
 
@@ -78,7 +111,7 @@ $ curl --location --request POST 'http://<pi ip address>:5000/api/add/frederick'
 }
 ```
 
-Response will always be `true`.  Return code is 201.
+Response will always be `true`.  Return code is always 201.  The LEDs will indicate which bits in the Bloom filter your new element hashed to.
 
 ### See if an Element Exists in the Bloom Filter
 
@@ -98,8 +131,9 @@ $ curl --location --request GET 'http://<pi ip address>:5000/api/exists/robert'
 
 Remember that this is a **probabalistic** data structure, so a response of `false` means the element is definitely not there, and `true` means it might be there.  Return code is 200.
 
-### Reset the Bloom Filter
+The LEDs will change color to indicate which bits in the Bloom filter are queried.  This will fail "fast" so the first bit checked and found unset will stop the process and return `false`.
 
+### Reset the Bloom Filter
 
 **Request:**
 
@@ -115,7 +149,7 @@ $ curl --location --request POST 'http://<pi ip address>:5000/api/reset'
 }
 ```
 
-Response will always be `true`.  Return code is 200.
+Response will always be `true`.  Return code is 200.  All LEDs will flash blue to indicate the Bloom filter has been reset, then all of the LEDs will turn off until you add new elements to the new filter instance.
 
 ## Other Notes
 
