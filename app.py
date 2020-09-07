@@ -8,7 +8,6 @@ import unicornhat
 
 API_PATH_PREFIX = 'api'
 NUM_HASH_FUNCTIONS = 3
-NUM_LEDS = 64
 COLOR_BIT_SET = (255, 0, 0)
 COLOR_BIT_WRITING = (0, 255, 0)
 COLOR_BIT_QUERYING = (0, 0, 255) 
@@ -21,6 +20,8 @@ unicornhat.rotation(180)
 unicornhat.brightness(0.19)
 unicorn_width, unicorn_height = unicornhat.get_shape()
 unicornhat.off()
+
+NUM_LEDS = unicorn_width * unicorn_height
 
 def get_led_position(led):
     unicorn_width, unicorn_height = unicornhat.get_shape()
