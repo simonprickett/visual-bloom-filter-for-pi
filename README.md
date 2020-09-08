@@ -76,8 +76,8 @@ Here's how it all works, focusing on the JavaScript:
 * The application runs on the `window.onload` event.
 * Click handlers are added to each of the Add, Exists and Reset buttons.
 * The click handlers for Add and Exists, use the same function: `buttonClicked`, but pass different parameters to it.
-* The function `buttonClicked` TODO...
-* The function `callBloomFilter` TODO...
+* The function `buttonClicked` checks that text was entered in the text input, and which button was pressed (Add or Exists).  If text was entered, it then calls `callBloomFilter` to handle interaction with the Flask backend via the API.
+* The function `callBloomFilter` calls the appropriate API endpoint using the Fetch API to either add an element to the Bloom filter, or check if the Bloom filter things an element exists.  It updates the page with the result of this operation, and clears the text input field.
 * The Reset button click handler clears out any text in the input text box, makes a `POST` request to the Flask Application's `reset` endpoint and displays a success or error message depending on the status code returned by the API.
 * The utliity function `displayErrorCallingBackendMessage` is used to display any errors from failed API calls.
 * The utility function `getResult` is used to pull the `result` object from a Fetch API response.
