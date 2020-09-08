@@ -57,7 +57,7 @@ Function `query_led_status` uses `get_led_position` to work out the position of 
 
 Function `set_led_status` takes a list of LED numbers, works out the position of each on the Unicorn Hat, adding that to a new list `led_positions`.  The LED at each position in the list is then turned on using the `toggle_leds` function for visual effect.  This is set individual bits in the Bloom filter.
 
-Function `add_to_filter` TODO...
+Function `add_to_filter` adds the supplied `element` to the Bloom filter.  It does this by running `element` through `NUM_HASH_FUNCTIONS` hash functions that come from Murmur3.  The result of each hash is modded by the number of LEDs in the Unicorn hat to give a LED number representing that hash result.  These results are stored in a list that is passed to `set_led_status` to change the status of the correponding LEDs.
 
 Function `exists_in_filter` runs value in `element` through the hash functions, checking if the LED associated with the hash from each is on or off.  It does this by using the `query_led_status` function.  As soon as one is found to be off (unset in the Bloom filter) the function returns `False`.  If all LEDs that `element` hashes to are on, the function returns `True`.
 
