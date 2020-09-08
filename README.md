@@ -1,6 +1,6 @@
 # Visual Bloom Filter
 
-A Bloom filter implementation that uses a Raspberry Pi and a Pimoroni Unicorn Hat to display the status of each of the 64 bits comprising the filter.
+A Bloom filter implementation that uses a Raspberry Pi and a Pimoroni Unicorn Hat to store and display the status of each of the 64 bits comprising the filter.
 
 This example is written in Python, exposes an API with Flask and uses the murmurhash3 library for hashing functions.
 
@@ -51,7 +51,7 @@ I start off by defining some constants, initializing Flask and configuring the U
 
 The utility function `get_led_position` translates a number into its equivalent row and column position on the LED matrix for the Unicorn Hat.  So, 10 for example would be row 1, column 1 for an 8 x 8 Unicorn Hat where the rows and columns are both 0 - 7 inclusive.
 
-Function `toggle_leds` TODO...
+Function `toggle_leds` accepts a list of LED positions, and two RGB color tuples.  One of these, `transition_color` is used as an interim color to show which LED is toggling.  The other, `new_color` is the color that each LED will be left showing when the function finishes.  This function gets the current color for each LED, then toggles between that and `transition_color` as many times as `NUM_TRANSITIONS` specifies, then sets each LED to the color specified in `new_color`.  This is used to provide a visual effect around setting and querying bits in the Bloom filter.
 
 Function `query_led_status` uses `get_led_position` to work out the position of the LED to query, then toggles it for visual effect, before checking whether or not the LED was off (RGB 000) or on (RGB anything other than 000).  Returns `True` if the LED was on (representing the bit in the Bloom filter being set) or `False` if the LED was off (representing the bit in the Bloom filter being unset).
 
