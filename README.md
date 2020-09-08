@@ -71,9 +71,18 @@ The front end is a single HTML page (`templates/homepage.html`) that works toget
 
 The vast majority of the styling comes from Bulma (`static/bulma.min.css`) with a tiny bit of link styling in `static/app.css`.  
 
-Here's how it all works:
+Here's how it all works, focusing on the JavaScript:
 
-TODO
+* The application runs on the `window.onload` event.
+* Click handlers are added to each of the Add, Exists and Reset buttons.
+* The click handlers for Add and Exists, use the same function: `buttonClicked`, but pass different parameters to it.
+* The function `buttonClicked` TODO...
+* The function `callBloomFilter` TODO...
+* The Reset button click handler clears out any text in the input text box, makes a `POST` request to the Flask Application's `reset` endpoint and displays a success or error message depending on the status code returned by the API.
+* The utliity function `displayErrorCallingBackendMessage` is used to display any errors from failed API calls.
+* The utility function `getResult` is used to pull the `result` object from a Fetch API response.
+* All DOM element IDs referred to in the JavaScript can be found in `templates/homepage.html`.
+* All CSS classes referred to in the HTML are defined in `static/bulma.min.css` (easier to use the [Bulma documentation](https://bulma.io/documentation/)) or in `static/app.css` for one case where I wanted to override some link styling in Bulma.
 
 ## Starting the Application
 
