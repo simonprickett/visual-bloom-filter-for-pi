@@ -4,6 +4,10 @@ A Bloom filter implementation that uses a Raspberry Pi and a Pimoroni Unicorn Ha
 
 This example is written in Python, exposes an API with Flask and uses the murmurhash3 library for hashing functions.
 
+Here's a video demo of it working...
+
+[![Video Demo](video_thumb.png)](https://www.youtube.com/watch?v=iwypvxt4K0I)
+
 ## Ingredients
 
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) (API framework).
