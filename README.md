@@ -49,7 +49,13 @@ The project has two main components, a backend / API written in Python using [Fl
 
 #### Flask Application
 
-The Flask application code is all in `app.py`, here's a quick walkthrough:
+The Flask application code is all in `app.py`, and exposes an API with these endpoints:
+
+* `POST /api/add/<element>` - add an element to the Bloom filter.  Always returns a 201 response.
+* `GET /api/exists/<element>` - returns `True` if the element might be in the Bloom filter (remember we can't be sure) or `False` if it isn't (we can be sure of this).
+* `POST /api/reset` - removes all elements from the Bloom filter and starts a fresh one.
+ 
+The application also has a route `GET /` that serves the front end as a static HTML / JavaScript / CSS page.
 
 I start off by defining some constants, initializing Flask and configuring the Unicorn hat so that LED 0, 0 is in the top left hand corner according to the way I have the Raspberry Pi oriented... I then get the size of the Unicorn Hat (Pimoroni make other models that have different sizes and I wanted to make the code pretty generic).
 
