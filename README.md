@@ -100,6 +100,20 @@ $ sudo bash
 
 Be sure to specify `--host=0.0.0.0` when starting Flask, so you can access the front end from other machines on your local network.
 
+## Starting the Application on Boot with systemd
+
+I included `bloomfilter.service` in the repo - this is a systemd configuration file that can be used to start the Bloom filter code when the Pi boots, so it becomes a real Bloom filter appliance.  
+
+If you need help with configuring a systemd service on a Pi, check out [this article](https://simonprickett.dev/writing-a-systemd-service-in-node-js-pi/) I wrote.
+
+Note that in my service file, I set:
+
+```
+TimeoutSec=90
+```
+
+This is because the Pi Model A is quite slow, so takes a while to start the Flask application.  This makes sure that systemd doesn't think it's failed and tries to restart it before it had the chance to start the first time.
+
 ## Using the Application's Front End
 
 To get to the application's front end, point your browser at `http://<pi ip address>:5000/`.
