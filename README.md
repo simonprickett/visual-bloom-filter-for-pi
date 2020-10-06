@@ -8,6 +8,8 @@ Here's a video demo of it working...
 
 [![Video Demo](video_thumb.png)](https://www.youtube.com/watch?v=iwypvxt4K0I)
 
+And [here's an article on my website that fully describes the project](https://simonprickett.dev/visual-bloom-filter-with-raspberry-pi/).
+
 ## Ingredients
 
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) (API framework).
