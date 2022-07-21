@@ -83,7 +83,7 @@ The front end is a single HTML page (`templates/homepage.html`) that works toget
 
 The vast majority of the styling comes from Bulma (`static/bulma.min.css`) with a tiny bit of link styling in `static/app.css`.  
 
-Here's how it all works, focusing on the JavaScript:
+Here's how it all works, focusing on the [JavaScript](https://www.scaler.com/topics/javascript/what-is-javascript/):
 
 * The application runs on the `window.onload` event.
 * Click handlers are added to each of the Add, Exists and Reset buttons.
