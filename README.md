@@ -10,6 +10,8 @@ Here's a video demo of it working...
 
 And [here's an article on my website that fully describes the project](https://simonprickett.dev/visual-bloom-filter-with-raspberry-pi/).
 
+I subsequenly also wrote a Redis protocol compatible version of this project too.  [Read about it here](https://simonprickett.dev/building-a-redis-compatible-visual-bloom-filter/).
+
 ## Ingredients
 
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) (API framework).
